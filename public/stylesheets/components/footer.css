@@ -1,0 +1,213 @@
+/* ================================== */
+/* FOOTER STYLES                      */
+/* ================================== */
+.site-footer {
+    background-color: #2F2E41;
+    color: #D1D5DB;
+    padding: 4rem 2rem 2rem;
+    margin-top: 3rem;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+}
+
+.footer-column h4, .subscribe-box h5 {
+    color: var(--white);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* This targets the third column in the footer grid */
+.footer-container > .footer-column:nth-child(3) {
+    text-align: center;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 1rem;
+}
+
+.footer-column ul a {
+    color: #D1D5DB;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul a:hover {
+    color: var(--white);
+}
+
+.footer-logo {
+    width: 215px;
+    margin-bottom: 1.5rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icon {
+    color: #D1D5DB;
+    border: 1px solid #4B5563;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #4B5563;
+    color: var(--white);
+}
+
+.subscribe-box {
+    background-color: #37354E;
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.subscribe-form {
+    display: flex;
+    background-color: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.subscribe-form input {
+    flex-grow: 1;
+    border: none;
+    padding: 0.75rem;
+    background: transparent;
+    color: var(--text-dark);
+    font-family: var(--font-main);
+}
+
+.subscribe-form input:focus {
+    outline: none;
+}
+
+.subscribe-form button {
+    border: none;
+    background-color: var(--accent-green);
+    color: var(--white);
+    padding: 0 1rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+}
+
+.subscribe-form button:hover {
+    background-color: #009a75;
+}
+
+.subscribe-box p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #9CA3AF;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 2.5rem auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid #4B5563;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 99px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.footer-btn i {
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.btn-contact {
+    background-color: var(--white);
+    color: var(--primary-dark);
+}
+
+.btn-contact:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.btn-contact:hover i {
+    background-color: #E5E7EB;
+}
+
+.btn-validate {
+    border: 1px solid #4B5563;
+    color: var(--white);
+}
+
+.btn-validate:hover {
+    background-color: #4B5563;
+}
+
+/* Responsive adjustments for the footer */
+@media (max-width: 1024px) {
+    .footer-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .subscribe-column {
+        grid-column: span 3; /* Make subscribe box full width */
+    }
+}
+
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 3rem 1rem 2rem;
+    }
+    .footer-container {
+        grid-template-columns: 1fr 1fr; /* Two columns on smaller tablets */
+        text-align: center;
+    }
+    .logo-column {
+        grid-column: span 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .subscribe-column {
+        grid-column: span 2;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+    }
+}

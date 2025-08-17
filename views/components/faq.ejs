@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/components/faq.css">
+</head>
+<body>
+    <div class="faq-container" id="faq">
+    <h2 class="faq-header">FAQ</h2>
+
+    <div class="accordion">
+        <div class="accordion-item active">
+            <button class="accordion-button">
+                1. What type of courses do you offer?
+                <span class="accordion-icon">
+                    <i class="fas fa-plus icon-plus"></i>
+                    <i class="fas fa-minus icon-minus"></i>
+                </span>
+            </button>
+            <div class="accordion-content">
+                <p>Currently, we offer six courses: Frontend Web Development, Backend Web Development, AutoCAD, Graphics Designing, UI/UX Designing (using Figma), and LinkedIn Resume Designing Masterclass.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-button">
+                2. How can I enroll in a course or Xeroship?
+                <span class="accordion-icon">
+                    <i class="fas fa-plus icon-plus"></i>
+                    <i class="fas fa-minus icon-minus"></i>
+                </span>
+            </button>
+            <div class="accordion-content">
+                <p>To enroll, simply navigate to the course page of your choice, click the "Enroll Now" button, and follow the on-screen instructions to complete the payment and registration process.</p>
+            </div>
+        </div>
+        
+        <div class="accordion-item">
+            <button class="accordion-button">
+                3. What is the duration of the courses or Xeroships?
+                <span class="accordion-icon">
+                    <i class="fas fa-plus icon-plus"></i>
+                    <i class="fas fa-minus icon-minus"></i>
+                </span>
+            </button>
+            <div class="accordion-content">
+                <p>The duration varies by program. Most of our standard courses are 4-6 weeks long, while our intensive Xeroship programs can last up to 3 months. Specific durations are listed on each course page.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-button">
+                4. Can I get a certificate after completing my course?
+                <span class="accordion-icon">
+                    <i class="fas fa-plus icon-plus"></i>
+                    <i class="fas fa-minus icon-minus"></i>
+                </span>
+            </button>
+            <div class="accordion-content">
+                <p>Yes, absolutely! Upon successful completion of any course or Xeroship, you will receive a verifiable digital certificate that you can share on your LinkedIn profile and resume.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <button class="accordion-button">
+                5. Are the courses self-paced or do they follow a set schedule?
+                <span class="accordion-icon">
+                    <i class="fas fa-plus icon-plus"></i>
+                    <i class="fas fa-minus icon-minus"></i>
+                </span>
+            </button>
+            <div class="accordion-content">
+                <p>Our programs offer a hybrid model. While the core content can be accessed at your own pace, there are scheduled live sessions with mentors, project deadlines, and group discussions to ensure an interactive and structured learning experience.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Self-executing function to avoid global scope conflicts
+    (function() {
+        // Find the specific accordion container for this script
+        const faqContainer = document.querySelector('.faq-container');
+        if (!faqContainer) return; // Exit if the container isn't found
+
+        const accordionItems = faqContainer.querySelectorAll('.accordion-item');
+
+        // Initial setup for the first active item on page load
+        const firstActiveItem = faqContainer.querySelector('.accordion-item.active');
+        if (firstActiveItem) {
+            const content = firstActiveItem.querySelector('.accordion-content');
+            content.style.maxHeight = content.scrollHeight + 'px';
+        }
+
+        accordionItems.forEach(item => {
+            const button = item.querySelector('.accordion-button');
+            const content = item.querySelector('.accordion-content');
+
+            button.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all other accordion items within this specific FAQ container
+                accordionItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.accordion-content').style.maxHeight = '0';
+                    }
+                });
+
+                // Toggle the clicked item's active state
+                item.classList.toggle('active');
+
+                // Set max-height for the active item to animate smoothly
+                if (item.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                } else {
+                    content.style.maxHeight = '0';
+                }
+            });
+        });
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Admin Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#6B7280',
+                        accent: '#FCD34D',
+                        background: '#F9FAFB',
+                        card: '#FFFFFF',
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .custom-shadow {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Transition for table rows */
+        .admin-table tbody tr {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .admin-table tbody tr:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            z-index: 10;
+            position: relative;
+        }
+
+        .transaction-row td {
+            padding-top: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-secondary font-sans p-6 lg:p-12">
+
+    <div class="container mx-auto max-w-7xl">
+        <header class="mb-10 text-center">
+            <h1 class="text-5xl font-bold text-gray-900 leading-tight">Admin Dashboard</h1>
+            <p class="text-lg text-secondary mt-2">Manage student registrations and courses with ease.</p>
+        </header>
+
+        <section class="bg-card p-8 rounded-3xl custom-shadow mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-semibold text-gray-800">Student Registrations</h2>
+                <span class="text-primary font-bold text-xl">
+                    <%= students.length %> Total Students
+                </span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full admin-table rounded-xl overflow-hidden border-collapse">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="py-4 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-tl-xl">
+                                Student Name
+                            </th>
+                            <th class="py-4 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Email</th>
+                            <th class="py-4 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Course</th>
+                            <th class="py-4 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+                            <th class="py-4 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider rounded-tr-xl">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <% if (students && students.length> 0) { %>
+                            <% students.forEach(student=> { %>
+                                <tr class="bg-card">
+                                    <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="flex-shrink-0 w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-sm font-semibold text-gray-700">
+                                                <%= student.firstName.charAt(0) + student.lastName.charAt(0) %>
+                                            </div>
+                                            <div>
+                                                <div class="font-semibold text-gray-900">
+                                                    <%= student.firstName %>
+                                                        <%= student.lastName %>
+                                                </div>
+                                                <div class="text-xs text-secondary mt-1">
+                                                    <%= student.contactNumber %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm text-gray-600">
+                                        <%= student.email %>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm text-gray-600">
+                                        <%= student.enrolledCourses[0] %>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <% if (student.status==='completed' ) { %>
+                                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                Confirmed
+                                            </span>
+                                            <% } else { %>
+                                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                    Pending
+                                                </span>
+                                                <% } %>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm font-medium">
+                                        <button class="accept-btn font-semibold py-2 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:-translate-y-0.5
+                                                <%= student.status === 'completed' ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-primary text-white hover:bg-indigo-600' %>"
+                                            data-student-id="<%= student._id %>" <%= student.status==='completed' ? 'disabled' : '' %>>
+                                            <%= student.status === 'completed' ? 'Registration Confirmed' : 'Accept Registration' %>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="transaction-row hidden bg-gray-50 border-t border-gray-200" id="transaction-<%= student._id %>">
+                                    <td colspan="5" class="px-6 py-4">
+                                        <form class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 p-6 rounded-2xl bg-white border border-gray-200 shadow-inner update-form" action="/update-status/<%= student.id %>" method="post">
+                                            <div class="flex-1">
+                                                <label for="trn-<%= student._id %>" class="block text-sm font-medium text-gray-700">Transaction Number</label>
+                                                <input type="text" id="trn-<%= student._id %>" name="trnNumber"
+                                                    class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="Enter transaction number">
+                                            </div>
+                                            <div class="flex-1">
+                                                <label for="amount-<%= student._id %>" class="block text-sm font-medium text-gray-700">Amount Paid</label>
+                                                <input type="number" id="amount-<%= student._id %>" name="amountPaid"
+                                                    class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="Enter amount">
+                                            </div>
+                                            <div class="flex-1">
+                                                <label for="status-<%= student._id %>" class="block text-sm font-medium text-gray-700">Status</label>
+                                                <select id="status-<%= student._id %>" name="status"
+                                                    class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm">
+                                                    <option value="pending" <%= student.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                                                    <option value="completed" <%= student.status === 'completed' ? 'selected' : '' %>>Completed</option>
+                                                </select>
+                                            </div>
+                                            <div class="flex items-end">
+                                                <button type="submit"
+                                                    class="confirm-accept w-full md:w-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 ease-in-out transform hover:-translate-y-0.5">
+                                                    Confirm
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="5" class="py-8 px-6 text-center text-gray-500">
+                                                No student registrations found.
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="bg-card p-8 rounded-3xl custom-shadow">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Add New Course</h2>
+            <form id="add-course-form" class="space-y-6" action="/add" method="post">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div>
+                        <label for="title" class="block text-sm font-medium text-gray-700">Course Title</label>
+                        <input type="text" id="title" name="title" required
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="e.g., UI/UX Design Fundamentals">
+                    </div>
+                    <div>
+                        <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+                        <select id="category" name="category" required
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm">
+                            <option value="">Select a Category</option>
+                            <option value="Design">Design</option>
+                            <option value="Development">Development</option>
+                            <option value="CAD/CAM">CAD/CAM</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="level" class="block text-sm font-medium text-gray-700">Level</label>
+                        <select id="level" name="level" required
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm">
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="duration" class="block text-sm font-medium text-gray-700">Duration (in weeks)</label>
+                        <input type="number" id="duration" name="duration" required min="1"
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="e.g., 8">
+                    </div>
+                    <div>
+                        <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+                        <input type="number" id="price" name="price" required min="0"
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="e.g., 500">
+                    </div>
+                    <div>
+                        <label for="Nmin" class="block text-sm font-medium text-gray-700">Minor Projects</label>
+                        <input type="number" id="Nmin" name="Nmin" required min="0"
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="e.g., 10">
+                    </div>
+                    <div>
+                        <label for="Nmax" class="block text-sm font-medium text-gray-700">Major Projects</label>
+                        <input type="number" id="Nmax" name="Nmax" required min="0"
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="e.g., 50">
+                    </div>
+                    <div>
+                        <label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
+                        <input type="date" id="startDate" name="startDate"
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm">
+                    </div>
+                    <div>
+                        <label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
+                        <input type="date" id="endDate" name="endDate"
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea id="description" name="description" rows="4" required
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="Write a brief description of the course..."></textarea>
+                    </div>
+                    <div>
+                        <label for="curriculum" class="block text-sm font-medium text-gray-700">Curriculum</label>
+                        <textarea id="curriculum" name="curriculum" rows="4"
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="List the topics covered in the course..."></textarea>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-semibold text-gray-800 pt-6 border-t border-gray-100 mt-6">Instructor Details</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="instructorName" class="block text-sm font-medium text-gray-700">Instructor Name</label>
+                        <input type="text" id="instructorName" name="instructorName" required
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="e.g., Jane Doe">
+                    </div>
+                    <div>
+                        <label for="expertise" class="block text-sm font-medium text-gray-700">Expertise</label>
+                        <input type="text" id="expertise" name="expertise" required
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="e.g., UX Design, Front-End Development">
+                    </div>
+                    <div>
+                        <label for="linkedIn" class="block text-sm font-medium text-gray-700">LinkedIn Profile URL</label>
+                        <input type="text" id="linkedIn" name="linkedIn"
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="Optional">
+                    </div>
+                    <div>
+                        <label for="profileImage" class="block text-sm font-medium text-gray-700">Instructor Profile Image URL</label>
+                        <input type="text" id="profileImage" name="profileImage"
+                            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="Optional">
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-semibold text-gray-800 pt-6 border-t border-gray-100 mt-6">Course Images</h3>
+                <div>
+                    <label for="image" class="block text-sm font-medium text-gray-700">Course Banner Image URL</label>
+                    <input type="text" id="image" name="image"
+                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="Optional">
+                </div>
+
+                <div class="pt-6 border-t border-gray-200 mt-8">
+                    <button type="submit"
+                        class="w-full bg-primary hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+                        Add New Course
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const acceptButtons = document.querySelectorAll('.accept-btn');
+            acceptButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const studentId = button.getAttribute('data-student-id');
+                    const transactionRow = document.getElementById(`transaction-${studentId}`);
+                    transactionRow.classList.toggle('hidden');
+
+                    if (transactionRow.classList.contains('hidden')) {
+                        button.textContent = 'Accept Registration';
+                        button.classList.remove('bg-red-500');
+                        button.classList.add('bg-primary');
+                    } else {
+                        button.textContent = 'Hide Fields';
+                        button.classList.remove('bg-primary');
+                        button.classList.add('bg-red-500');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

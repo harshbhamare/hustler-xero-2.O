@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="registration-popup-overlay">
+        <div class="registration-popup-content">
+            <div class="popup-left">
+                <div class="popup-left-text">
+                
+                </div>
+            </div>
+
+            <div class="popup-right">
+                <button class="popup-close-btn">&times;</button>
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2>Registration form</h2>
+                        <p>Register for a personalized and secure experience</p>
+                    </div>
+                    <form class="registration-form" action="/register" method="POST">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Enter first name" name="firstName">
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Enter last name" name="lastName">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="Enter your e-mail" name="email">
+                        </div>
+                        <div class="input-group phone-input-group">
+                            <div class="country-code">+91</div>
+                            <input type="tel" placeholder="Enter your contact number" name="contactNumber">
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-graduation-cap"></i>
+                            <select name="enrolledCourses" id="internship-program">
+                                <option value="">Select internship program</option>
+                                <option value="figma">Figma / UI-UX</option>
+                                <option value="photoshop">Photoshop</option>
+                                <option value="autocad">AutoCAD</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-university"></i>
+                            <input type="text" placeholder="College name" name="collegeName">
+                        </div>
+                        <button type="submit" class="btn-register-form">Register Here</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XEROship Homepage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/stylesheets/index.css">
+
+
+</head>
+<style>
+    /* ================================== */
+    /* MOBILE NAVIGATION STYLES (IMPROVED) */
+    /* ================================== */
+    @media (max-width: 1024px) {
+
+        .main-nav,
+        .btn-register {
+            display: none;
+        }
+
+        .main-nav.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 15%;
+            left: 0;
+            width: 100%;
+            background-color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-top: 1px solid var(--border-color);
+            z-index: 999;
+        }
+
+        .main-nav.active a {
+            padding: 1rem 2rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-register.active {
+            display: flex;
+            margin: 1rem auto;
+            width: calc(100% - 11rem);
+            justify-content: center;
+        }
+
+        .mobile-nav-toggle {
+            display: block;
+            z-index: 1001;
+        }
+    }
+
+    .journey-card {
+        text-align: center;
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .journey-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    /* ================================== */
+    /* REGISTRATION POPUP STYLES          */
+    /* ================================== */
+    .registration-popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .registration-popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .registration-popup-content {
+        display: flex;
+        width: 90%;
+        max-width: 1100px;
+        height: 90%;
+        max-height: 700px;
+        background-color: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .popup-left {
+        flex: 1;
+        background-color: #F0F0F0;
+        position: relative;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-left::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/images/regForm.jpg');
+        /* Replace with the actual image URL */
+        background-size: cover;
+        background-position: center;
+        opacity: 0.8;
+    }
+
+    .popup-left-text {
+        position: relative;
+        z-index: 1;
+        text-align: left;
+        color: #333;
+        width: 80%;
+    }
+
+    .popup-left-text h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+
+    .popup-left-text h2 span {
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.2em;
+        font-weight: normal;
+    }
+
+    .popup-right {
+        flex: 1.5;
+        padding: 2rem;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 2rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: #ccc;
+        transition: color 0.2s ease;
+    }
+
+    .popup-close-btn:hover {
+        color: #888;
+    }
+
+    .form-container {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .form-header h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+        color: #666;
+        margin-bottom: 2rem;
+    }
+
+    .registration-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .input-group {
+        position: relative;
+        width: 100%;
+    }
+
+    .input-group i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #ccc;
+    }
+
+    .input-group input,
+    .input-group select {
+        width: 100%;
+        padding: 12px 12px 12px 45px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        color: #333;
+        transition: border-color 0.2s ease;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+
+    .phone-input-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .country-code {
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        background-color: #f5f5f5;
+        color: #666;
+    }
+
+    .phone-input-group input {
+        border-radius: 0 8px 8px 0;
+        padding-left: 12px;
+    }
+
+    .btn-register-form {
+        width: 100%;
+        padding: 15px;
+        background-color: #3F3D56;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-register-form:hover {
+        background-color: #2F2E41;
+    }
+
+    @media (max-width: 768px) {
+        .registration-popup-content {
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+
+        .popup-left {
+            display: none;
+            /* Hide the left side on mobile for space */
+        }
+
+        .popup-right {
+            padding: 2rem 1rem;
+        }
+
+        .form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+</style>
+
+<body>
+
+    <%- include('components/header') %>
+
+        <main>
+
+            <%- include('components/regForm') %>
+                <div class="container">
+                    <section class="hero-section">
+                        <div class="hero-content container">
+                            <div class="hero-badge">
+                                <span class="dot"></span>
+                                XERO PROGRAM
+                            </div>
+                            <h1>Revolutionizing Student <br> Internships with <span> <br>Affordability</span></h1>
+                            <p>Master your tech skills with Industry Crafted Curriculum.</p>
+                            <a href="#courses" class="btn-explore">
+                                Explore programs
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </section>
+                </div>
+
+                <section class="why-choose-us">
+                    <div class="container">
+                        <h2>Why choose XEROship?</h2>
+                        <div class="features-container">
+                            <div class="feature-item">
+                                <div class="icon-wrapper">
+                                    <!-- Replace with your image path -->
+                                    <img src="/images/home/featureOne.jpg" alt="Industry-Focused Learning">
+                                </div>
+                                <h3>Industry-Focused Learning</h3>
+                                <p>Along with cutting-edge, hands-on learning Crafted up to industry demands.</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="icon-wrapper">
+                                    <!-- Replace with your image path -->
+                                    <img src="/images/home/featureTwo.jpg" alt="Next-Gen Internships">
+                                </div>
+                                <h3>Next-Gen Internships</h3>
+                                <p>Discover a revolutionary upgrade from traditional internships.</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="icon-wrapper">
+                                    <!-- Replace with your image path -->
+                                    <img src="/images/home/featureThree.jpg" alt="Stand-Out Skills">
+                                </div>
+                                <h3>Stand-Out Skills</h3>
+                                <p>Gain invaluable skills and mentorship that set you apart in the job market.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================================== -->
+                <!-- INTERNSHIP PROGRAMS SECTION      -->
+                <!-- ================================== -->
+                <section class="internship-programs container" id="courses">
+                    <h2 class="section-title">Our Internship Programs</h2>
+
+                    <!-- Program Tabs Navigation -->
+                    <div class="program-tabs">
+                        <button class="program-tab active" data-tab="design">
+                            <i class="fas fa-palette"></i> Design programs
+                        </button>
+                        <button class="program-tab" data-tab="development">
+                            <i class="fas fa-code"></i> Development programs
+                        </button>
+                        <button class="program-tab" data-tab="social">
+                            <i class="fas fa-share-alt"></i> CAD/CAM programs
+                        </button>
+                        <div class="program-tab-placeholder">
+                            <i class="fas fa-star"></i> More coming soon
+                        </div>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+    <%
+        // Categorize courses into separate arrays. The EJS tag is now correctly opened and closed.
+        const designCourses = courses.filter(course => course.category === 'Design');
+        const developmentCourses = courses.filter(course => course.category === 'Development');
+        const socialMediaCourses = courses.filter(course => course.category === 'CAD/CAM');
+    %>
+
+    <div id="design-content" class="course-grid active">
+        <% if (designCourses.length > 0) { %>
+            <% designCourses.forEach(course => { %>
+                <div class="course-card">
+                    <span class="card-badge">Expert Internship</span>
+                    <div class="card-header">
+                        <img src="<%= course.image %>" alt="<%= course.title %> logo" class="logo">
+                        <div class="course-title">
+                            <h4><%= course.title %></h4>
+                            <span>Xeroship program</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                    </div>
+                    <div class="members">
+                        <div class="member-avatars">
+                            <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
+                            <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
+                            <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
+                        </div>
+                        <span>Join 867+ Members</span>
+                    </div>
+                    <div class="plan-tabs">
+                        <button class="tab-btn">Basic plan</button>
+                        <button class="tab-btn active">Advance plan <i class="fa-solid fa-bolt"></i></button>
+                    </div>
+                    <ul class="program-features">
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.duration %> weeks duration</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.level %> level program</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.Nmin %> minor + <%= course.Nmax %> major project</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter + Certificate</li>
+                        <li class="highlighted"><i class="fa-solid fa-circle-plus icon-highlight"></i> Live programs</li>
+                    </ul>
+                    <div class="pricing">
+                        <span class="current-price">₹<%= course.price %>/-</span>
+                        <span class="original-price">₹999/-</span>
+                    </div>
+                    <button class="btn-enroll">Enroll now</button>
+                    <a href="/details/<%= course._id%>" class="more-details">More details</a>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No design programs available at the moment.</p>
+        <% } %>
+    </div>
+
+    <div id="development-content" class="course-grid">
+        <% if (developmentCourses.length > 0) { %>
+            <% developmentCourses.forEach(course => { %>
+                <div class="course-card">
+                    <span class="card-badge">Expert Internship</span>
+                    <div class="card-header">
+                        <img src="<%= course.image %>" alt="<%= course.title %> logo" class="logo">
+                        <div class="course-title">
+                            <h4><%= course.title %></h4>
+                            <span>Xeroship program</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                    </div>
+                    <div class="members">
+                        <div class="member-avatars">
+                            <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
+                            <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
+                            <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
+                        </div>
+                        <span>Join 867+ Members</span>
+                    </div>
+                    <div class="plan-tabs">
+                        <button class="tab-btn">Basic plan</button>
+                        <button class="tab-btn active">Advance plan <i class="fa-solid fa-bolt"></i></button>
+                    </div>
+                    <ul class="program-features">
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.duration %> weeks duration</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.level %> level program</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.Nmin %> minor + <%= course.Nmax %> major project</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter + Certificate</li>
+                        <li class="highlighted"><i class="fa-solid fa-circle-plus icon-highlight"></i> Live programs</li>
+                    </ul>
+                    <div class="pricing">
+                        <span class="current-price">₹<%= course.price %>/-</span>
+                        <span class="original-price">₹999/-</span>
+                    </div>
+                    <button class="btn-enroll">Enroll now</button>
+                    <a href="/details/<%= course._id%>" class="more-details">More details</a>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No development programs available at the moment.</p>
+        <% } %>
+    </div>
+
+    <div id="social-content" class="course-grid">
+        <% if (socialMediaCourses.length > 0) { %>
+            <% socialMediaCourses.forEach(course => { %>
+                <div class="course-card">
+                    <span class="card-badge">Expert Internship</span>
+                    <div class="card-header">
+                        <img src="<%= course.image %>" alt="<%= course.title %> logo" class="logo">
+                        <div class="course-title">
+                            <h4><%= course.title %></h4>
+                            <span>Xeroship program</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                    </div>
+                    <div class="members">
+                        <div class="member-avatars">
+                            <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
+                            <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
+                            <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
+                        </div>
+                        <span>Join 867+ Members</span>
+                    </div>
+                    <div class="plan-tabs">
+                        <button class="tab-btn">Basic plan</button>
+                        <button class="tab-btn active">Advance plan <i class="fa-solid fa-bolt"></i></button>
+                    </div>
+                    <ul class="program-features">
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.duration %> weeks duration</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.level %> level program</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.Nmin %> minor + <%= course.Nmax %> major project</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter + Certificate</li>
+                        <li class="highlighted"><i class="fa-solid fa-circle-plus icon-highlight"></i> Live programs</li>
+                    </ul>
+                    <div class="pricing">
+                        <span class="current-price">₹<%= course.price %>/-</span>
+                        <span class="original-price">₹999/-</span>
+                    </div>
+                    <button class="btn-enroll">Enroll now</button>
+                    <a href="/details/<%= course._id%>" class="more-details">More details</a>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No social media programs available at the moment.</p>
+        <% } %>
+    </div>
+</div>
+                </section>
+
+                <!-- ================================== -->
+                <!-- TRANSFORM JOURNEY SECTION        -->
+                <!-- ================================== -->
+                <section class="transform-journey">
+                    <div class="container">
+                        <h2 class="section-title">Transform your skill journey with Hustler.XERO</h2>
+
+                        <!-- Swiper Slider for Journey Steps -->
+                        <div class="swiper journey-slider">
+                            <div class="swiper-wrapper">
+                                <!-- Slide 1 -->
+                                <div class="swiper-slide">
+                                    <div class="journey-card">
+                                        <h3>Visit Hustler.XERO</h3>
+                                        <img src="/images/home/sliderOne.jpg" alt="Visit Hustler.XERO">
+                                    </div>
+                                </div>
+                                <!-- Slide 2 -->
+                                <div class="swiper-slide">
+                                    <div class="journey-card">
+                                        <h3>Enroll to internships</h3>
+                                        <img src="/images/home/sliderTwo.jpg" alt="Enroll to internships">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="journey-card">
+                                        <h3>Enroll to internships</h3>
+                                        <img src="/images/home/sliderThree.jpg" alt="Enroll to internships">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="journey-card">
+                                        <h3>Enroll to internships</h3>
+                                        <img src="/images/home/sliderFour.jpg" alt="Enroll to internships">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="journey-card">
+                                        <h3>Enroll to internships</h3>
+                                        <img src="/images/home/sliderFive.jpg" alt="Enroll to internships">
+                                    </div>
+                                </div>
+                                <!-- Slide 3 -->
+                                <div class="swiper-slide">
+                                    <div class="journey-card">
+                                        <h3>Interact with mentors</h3>
+                                        <img src="/images/home/sliderSix.jpg" alt="Interact with mentors">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination journey-pagination"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================================== -->
+                <!-- FEATURES & COMMUNITY SECTION     -->
+                <!-- ================================== -->
+                <section class="features-community" id="features">
+                    <div class="container grid-container">
+                        <!-- Get Certification Card -->
+                        <div class="feature-card certification-card">
+                            <h3>Get Certification</h3>
+                            <ul>
+                                <li><i class="fas fa-check-circle"></i> Showcase Certified Skills To Employers</li>
+                                <li><i class="fas fa-check-circle"></i> Transform Into A Recruiter-Magnet On LinkedIn
+                                    With
+                                    Your Certifications & Skills</li>
+                            </ul>
+                            <img src="/images/home/dummyCertificate.jpg" alt="Certificate of Completion"
+                                class="certificate-image">
+                        </div>
+
+                        <!-- Join Community & Testimonials Column -->
+                        <div class="community-testimonials-wrapper">
+                            <!-- Join Community Card -->
+                            <div class="feature-card community-card">
+                                <div class="community-content">
+                                    <h3>Join Our Xero Community</h3>
+                                    <a href="#" class="btn-community">Join community <i
+                                            class="fas fa-check-circle"></i></a>
+                                    <ul>
+                                        <li><i class="fas fa-check-circle"></i> Get Daily Updates</li>
+                                        <li><i class="fas fa-check-circle"></i> Live Chat Support</li>
+                                        <li><i class="fas fa-check-circle"></i> Join the Largest Community</li>
+                                    </ul>
+                                </div>
+                                <div class="community-image">
+                                    <img src="/images/home/community.png" alt="WhatsApp on a phone">
+                                </div>
+                            </div>
+
+                            <!-- Testimonials Card -->
+                            <div class="feature-card testimonials-card">
+                                <h3>Testimonials</h3>
+                                <!-- Swiper Slider for Testimonials -->
+                                <div class="swiper testimonials-slider">
+                                    <div class="swiper-wrapper">
+                                        <!-- Testimonial 1 -->
+                                        <div class="swiper-slide">
+                                            <div class="testimonial-content">
+                                                <p>"Lorem ipsum has been the industry's standard dummy text ever since
+                                                    the
+                                                    1500s, when an unknown printer took a galley of type and scrambled
+                                                    it to
+                                                    make a type."</p>
+                                                <div class="testimonial-author">
+                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg"
+                                                        alt="Arinze Onyebuchi">
+                                                    <div class="author-details">
+                                                        <strong>Arinze Onyebuchi</strong>
+                                                        <span>Product Designer</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="testimonial-content">
+                                                <p>"Lorem ipsum has been the industry's standard dummy text ever since
+                                                    the
+                                                    1500s, when an unknown printer took a galley of type and scrambled
+                                                    it to
+                                                    make a type."</p>
+                                                <div class="testimonial-author">
+                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg"
+                                                        alt="Arinze Onyebuchi">
+                                                    <div class="author-details">
+                                                        <strong>Arinze Onyebuchi</strong>
+                                                        <span>Product Designer</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="testimonial-content">
+                                                <p>"Lorem ipsum has been the industry's standard dummy text ever since
+                                                    the
+                                                    1500s, when an unknown printer took a galley of type and scrambled
+                                                    it to
+                                                    make a type."</p>
+                                                <div class="testimonial-author">
+                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg"
+                                                        alt="Arinze Onyebuchi">
+                                                    <div class="author-details">
+                                                        <strong>Arinze Onyebuchi</strong>
+                                                        <span>Product Designer</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div class="testimonial-content">
+                                                <p>"Lorem ipsum has been the industry's standard dummy text ever since
+                                                    the
+                                                    1500s, when an unknown printer took a galley of type and scrambled
+                                                    it to
+                                                    make a type."</p>
+                                                <div class="testimonial-author">
+                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg"
+                                                        alt="Arinze Onyebuchi">
+                                                    <div class="author-details">
+                                                        <strong>Arinze Onyebuchi</strong>
+                                                        <span>Product Designer</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Testimonial 2 -->
+                                        <div class="swiper-slide">
+                                            <div class="testimonial-content">
+                                                <p>"A fantastic learning experience with great mentors. The hands-on
+                                                    projects were invaluable and really boosted my portfolio. Highly
+                                                    recommended for aspiring designers!"</p>
+                                                <div class="testimonial-author">
+                                                    <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Jane Doe">
+                                                    <div class="author-details">
+                                                        <strong>Jane Doe</strong>
+                                                        <span>UX Researcher</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Add Pagination -->
+                                    <div class="swiper-pagination testimonials-pagination"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================================== -->
+                <!-- CTA SECTION                      -->
+                <!-- ================================== -->
+                <section class.="cta-section-wrapper">
+                    <div class="container">
+                        <div class="cta-section">
+                            <div class="cta-content">
+                                <h2>Elevate your learning<br>experience with Xero-Ships today.</h2>
+                                <a href="#" class="btn-enroll-cta">
+                                    Enroll to program
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <%- include('components/faq') %>
+                    <%- include('components/footer') %>
+
+
+        </main>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="/javascripts/faq-script.js"></script>
+
+</body>
+
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // --- Mobile Navigation Toggle ---
+        const navToggle = document.querySelector('.mobile-nav-toggle');
+        const mainNav = document.querySelector('.main-nav');
+        const registerBtnHeader = document.querySelector('.btn-register');
+
+        if (navToggle && mainNav) {
+            navToggle.addEventListener('click', (event) => {
+                event.stopPropagation();
+                mainNav.classList.toggle('active');
+                if (registerBtnHeader) {
+                    registerBtnHeader.classList.toggle('active');
+                }
+            });
+
+            window.addEventListener('click', (event) => {
+                if (mainNav.classList.contains('active') && !mainNav.contains(event.target) && !navToggle.contains(event.target)) {
+                    mainNav.classList.remove('active');
+                    if (registerBtnHeader) {
+                        registerBtnHeader.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        // --- Tab functionality for Internship Programs ---
+        const tabs = document.querySelectorAll('.program-tab');
+        const contents = document.querySelectorAll('.course-grid');
+
+        tabs.forEach(tab => {
+            if (tab.dataset.tab) {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    tab.classList.add('active');
+                    const targetContent = document.getElementById(tab.dataset.tab + '-content');
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            }
+        });
+
+        // --- Initialize Swiper Sliders ---
+        const journeySwiper = new Swiper('.journey-slider', {
+            loop: true,
+            slidesPerView: 1.2,
+            spaceBetween: 15,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.journey-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                }
+            }
+        });
+
+        const testimonialsSwiper = new Swiper('.testimonials-slider', {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 20,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.testimonials-pagination',
+                clickable: true,
+            },
+        });
+
+
+        // --- REGISTRATION POP-UP FUNCTIONALITY ---
+        // Select all buttons that should open the pop-up
+        const enrollBtns = document.querySelectorAll('.btn-register, .btn-enroll, .btn-enroll-cta');
+        const popupOverlay = document.querySelector('.registration-popup-overlay');
+        const closeBtn = document.querySelector('.popup-close-btn');
+
+        // Add a click listener to each button to show the popup
+        enrollBtns.forEach(btn => {
+            btn.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (popupOverlay) {
+                    popupOverlay.classList.add('active');
+                }
+            });
+        });
+
+        // Add event listeners for closing the popup
+        if (closeBtn && popupOverlay) {
+            closeBtn.addEventListener('click', () => {
+                popupOverlay.classList.remove('active');
+            });
+            popupOverlay.addEventListener('click', (event) => {
+                if (event.target === popupOverlay) {
+                    popupOverlay.classList.remove('active');
+                }
+            });
+        }
+    });
+</script>
+</body>
+
+</html>

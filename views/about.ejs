@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Vision, Mission & Team</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/about.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+<style>
+    /* ================================== */
+    /* MOBILE NAVIGATION STYLES (IMPROVED) */
+    /* ================================== */
+    @media (max-width: 1024px) {
+
+        /* Hide the nav and button by default on mobile */
+        .main-nav,
+        .btn-register {
+            display: none;
+        }
+
+        /* This is the container for the dropdown menu */
+        .main-nav.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 15%;
+            left: 0;
+            width: 100%;
+            background-color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-top: 1px solid var(--border-color);
+            z-index: 999;
+        }
+
+        /* Style the links inside the dropdown */
+        .main-nav.active a {
+            padding: 1rem 2rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Make the register button appear at the bottom of the dropdown */
+        .btn-register.active {
+            display: flex;
+            margin: 1rem auto;
+            width: calc(100% - 11rem);
+            justify-content: center;
+        }
+
+        .mobile-nav-toggle {
+            display: block;
+            z-index: 1001;
+        }
+    }
+
+    .journey-card {
+        text-align: center;
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .journey-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    /* ================================== */
+    /* REGISTRATION POPUP STYLES          */
+    /* ================================== */
+    .registration-popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .registration-popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .registration-popup-content {
+        display: flex;
+        width: 90%;
+        max-width: 1100px;
+        height: 90%;
+        max-height: 700px;
+        background-color: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .popup-left {
+        flex: 1;
+        background-color: #F0F0F0;
+        position: relative;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-left::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/images/regForm.jpg');
+        /* Replace with the actual image URL */
+        background-size: cover;
+        background-position: center;
+        opacity: 0.8;
+    }
+
+    .popup-left-text {
+        position: relative;
+        z-index: 1;
+        text-align: left;
+        color: #333;
+        width: 80%;
+    }
+
+    .popup-left-text h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+
+    .popup-left-text h2 span {
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.2em;
+        font-weight: normal;
+    }
+
+    .popup-right {
+        flex: 1.5;
+        padding: 2rem;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 2rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: #ccc;
+        transition: color 0.2s ease;
+    }
+
+    .popup-close-btn:hover {
+        color: #888;
+    }
+
+    .form-container {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .form-header h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+        color: #666;
+        margin-bottom: 2rem;
+    }
+
+    .registration-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .input-group {
+        position: relative;
+        width: 100%;
+    }
+
+    .input-group i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #ccc;
+    }
+
+    .input-group input,
+    .input-group select {
+        width: 100%;
+        padding: 12px 12px 12px 45px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        color: #333;
+        transition: border-color 0.2s ease;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+
+    .phone-input-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .country-code {
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        background-color: #f5f5f5;
+        color: #666;
+    }
+
+    .phone-input-group input {
+        border-radius: 0 8px 8px 0;
+        padding-left: 12px;
+    }
+
+    .btn-register-form {
+        width: 100%;
+        padding: 15px;
+        background-color: #3F3D56;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-register-form:hover {
+        background-color: #2F2E41;
+    }
+
+    @media (max-width: 768px) {
+        .registration-popup-content {
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+
+        .popup-left {
+            display: none;
+        }
+
+        .popup-right {
+            padding: 2rem 1rem;
+        }
+
+        .form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+</style>
+<body>
+    <%- include('components/header') %>
+    <%- include('components/regForm') %>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1>We revolutionise education & <span class="text-brand-green">unlock the potential</span> within every learner.</h1>
+                <button class="hero-button">
+                    <span>Know about us</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="hero-button-icon" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Vision Section -->
+    <main>
+        <section class="vision-section">
+            <div class="container">
+                <h2 class="section-title">Our Vision</h2>
+                <div class="vision-grid">
+                    <!-- Card 1: Empower -->
+                    <div class="vision-card">
+                        <div class="card-content">
+                            <div class="card-header">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                <h3>Empower</h3>
+                            </div>
+                            <p>We empower the generation of learners and professionals through innovative, accessible and industry relevant education.</p>
+                        </div>
+                        <div class="card-image-container">
+                            <img src="/images/about/supportOne.png" alt="Empower Graphic" class="card-image"/>
+                        </div>
+                    </div>
+                    <!-- Card 2: Bridging the gap -->
+                    <div class="vision-card">
+                        <div class="card-content">
+                            <div class="card-header">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                </svg>
+                                <h3>Bridging the gap</h3>
+                            </div>
+                            <p>We aim to bridge the gap between academic learning and hands-on training that prepare students thrive in their choosen careers.</p>
+                        </div>
+                        <div class="card-image-container">
+                            <img src="/images/about/supportTwo.png" alt="Bridging Gap Graphic" class="card-image"/>
+                        </div>
+                    </div>
+                    <!-- Card 3: Revolutionise -->
+                    <div class="vision-card">
+                        <div class="card-content">
+                            <div class="card-header">
+                               <svg xmlns="http://www.w3.org/2000/svg" class="card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-1.026.977-2.19.977-3.431 0-3.517-1.009-6.799-2.753-9.571M12 21V-4.2" />
+                                </svg>
+                                <h3>Revolutionise</h3>
+                            </div>
+                            <p>Join us as we revolutionise education and unlock the potential within every learner.</p>
+                        </div>
+                        <div class="card-image-container">
+                            <img src="/images/about/supportThree.png" alt="Revolutionise Graphic" class="card-image"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission-section">
+            <div class="container">
+                <h2 class="section-title">Our Mission</h2>
+                <div class="mission-content">
+                    <div class="mission-image-box">
+                        <img src="/images/about/work.jpg" alt="Classroom with students" class="mission-image">
+                        <div class="mission-overlay">
+                            <p>Our Mission Is To Break Barriers To Learning By Offering An Affordable, Innovative Platform. With Expert Mentors, We Turn Internships Into Exciting Journeys, Nurturing Curiosity, Collaboration, And Growth For Lifelong Success. Join Us!</p>
+                        </div>
+                    </div>
+                    <div class="mission-text-box">
+                        <img src="/images/about/union.png" alt="Abstract graphic" class="mission-text-graphic">
+                        <h3>XEROships—Transformative <span class="text-brand-green">Internships</span> That Blend Learning With Hands-On Experience.</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section">
+            <div class="container">
+                <div class="team-grid">
+                    <div class="team-intro-card">
+                        <h3>Meet Our Team</h3>
+                        <p>Guiding Your Journey With Passion, Expertise, And Dedication</p>
+                    </div>
+                    <div class="team-member-card">
+                        <img src="./img/sid.jpg" alt="Team member Harsh Bhamare">
+                        <h4>Harsh Bhamare</h4>
+                        <p>Co-Founder & CEO</p>
+                        <a href="#" class="linkedin-link">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LinkedIn</title><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
+                        </a>
+                    </div>
+                    <div class="team-member-card">
+                        <img src="./comp/member1.png" alt="Team member Harsh Bhamare">
+                        <h4>Harsh Bhamare</h4>
+                        <p>Co-Founder & CEO</p>
+                        <a href="#" class="linkedin-link">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LinkedIn</title><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+            <%- include('components/faq') %>
+                <%- include('components/footer') %>
+
+    </main>
+    
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="/javascripts/faq-script.js"></script>
+
+
+         <script>
+        // The most important step: wrap your code in a DOMContentLoaded event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Mobile Navigation Toggle ---
+            const navToggle = document.querySelector('.mobile-nav-toggle');
+            const mainNav = document.querySelector('.main-nav');
+            const registerBtnHeader = document.querySelector('.btn-register'); // This element is now guaranteed to exist
+
+            if (navToggle && mainNav) {
+                navToggle.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    mainNav.classList.toggle('active');
+                    if (registerBtnHeader) {
+                        registerBtnHeader.classList.toggle('active');
+                    }
+                });
+
+                window.addEventListener('click', (event) => {
+                    if (mainNav.classList.contains('active') && !mainNav.contains(event.target) && !navToggle.contains(event.target)) {
+                        mainNav.classList.remove('active');
+                        if (registerBtnHeader) {
+                            registerBtnHeader.classList.remove('active');
+                        }
+                    }
+                });
+            }
+
+            // --- Registration Popup Functionality ---
+            const registerBtnPopup = document.querySelector('.btn-register');
+            const popupOverlay = document.querySelector('.registration-popup-overlay');
+            const closeBtn = document.querySelector('.popup-close-btn');
+
+            if (registerBtnPopup && popupOverlay) {
+                registerBtnPopup.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    popupOverlay.classList.add('active');
+                });
+            }
+
+            if (closeBtn && popupOverlay) {
+                closeBtn.addEventListener('click', () => {
+                    popupOverlay.classList.remove('active');
+                });
+            }
+
+            if (popupOverlay) {
+                popupOverlay.addEventListener('click', (event) => {
+                    if (event.target === popupOverlay) {
+                        popupOverlay.classList.remove('active');
+                    }
+                });
+            }
+
+            // --- Other script initializations (Swiper, etc.) ---
+            const journeySwiper = new Swiper('.journey-slider', { /* ... */ });
+            const testimonialsSwiper = new Swiper('.testimonials-slider', { /* ... */ });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/components/header.css">
+</head>
+<style>
+/* ================================== */
+/* MOBILE NAVIGATION STYLES (IMPROVED) */
+/* ================================== */
+@media (max-width: 1024px) {
+    /* Hide the nav and button by default on mobile */
+    .main-nav, .btn-register {
+        display: none;
+    }
+
+    /* This is the container for the dropdown menu */
+    .main-nav.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 15%; /* Position it right below the header */
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        padding: 1rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-top: 1px solid var(--border-color);
+        z-index: 999;
+    }
+
+    /* Style the links inside the dropdown */
+    .main-nav.active a {
+        padding: 1rem 2rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Make the register button appear at the bottom of the dropdown */
+    .btn-register.active {
+        display: flex;
+        margin: 1rem auto;
+        width: calc(100% - 11rem);
+        justify-content: center;
+    }
+
+    .mobile-nav-toggle {
+        display: block;
+        z-index: 1001;
+    }
+}
+.journey-card {
+    text-align: center;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+}
+.journey-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+</style>
+<body>
+    <header class="site-header">
+        <div class="nav-container container">
+            <a href="#" class="logo"><img src="/images/logo.png" alt=""></a>
+            <nav class="main-nav">
+                <a href="/" class="active">Home</a>
+                <a href="/about-us">About us</a>
+                <a href="/#courses">Internships</a>
+                <a href="/#features">Testimonials</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <a href="#" class="btn-register">
+                Register for program
+                <span class="dot"></span>
+            </a>
+            <div class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+     <script src="/javascripts/components.js"></script>
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Internship Program</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<style>
+    /* ================================== */
+    /* MOBILE NAVIGATION STYLES (IMPROVED) */
+    /* ================================== */
+    @media (max-width: 1024px) {
+
+        .main-nav,
+        .btn-register {
+            display: none;
+        }
+
+        .main-nav.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 15%;
+            left: 0;
+            width: 100%;
+            background-color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-top: 1px solid var(--border-color);
+            z-index: 999;
+        }
+
+        .main-nav.active a {
+            padding: 1rem 2rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-register.active {
+            display: flex;
+            margin: 1rem auto;
+            width: calc(100% - 11rem);
+            justify-content: center;
+        }
+
+        .mobile-nav-toggle {
+            display: block;
+            z-index: 1001;
+        }
+    }
+
+    .journey-card {
+        text-align: center;
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .journey-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    /* ================================== */
+    /* REGISTRATION POPUP STYLES          */
+    /* ================================== */
+    .registration-popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .registration-popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .registration-popup-content {
+        display: flex;
+        width: 90%;
+        max-width: 1100px;
+        height: 90%;
+        max-height: 700px;
+        background-color: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .popup-left {
+        flex: 1;
+        background-color: #F0F0F0;
+        position: relative;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-left::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/images/regForm.jpg');
+        /* Replace with the actual image URL */
+        background-size: cover;
+        background-position: center;
+        opacity: 0.8;
+    }
+
+    .popup-left-text {
+        position: relative;
+        z-index: 1;
+        text-align: left;
+        color: #333;
+        width: 80%;
+    }
+
+    .popup-left-text h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+
+    .popup-left-text h2 span {
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.2em;
+        font-weight: normal;
+    }
+
+    .popup-right {
+        flex: 1.5;
+        padding: 2rem;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 2rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: #ccc;
+        transition: color 0.2s ease;
+    }
+
+    .popup-close-btn:hover {
+        color: #888;
+    }
+
+    .form-container {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .form-header h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+        color: #666;
+        margin-bottom: 2rem;
+    }
+
+    .registration-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .input-group {
+        position: relative;
+        width: 100%;
+    }
+
+    .input-group i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #ccc;
+    }
+
+    .input-group input,
+    .input-group select {
+        width: 100%;
+        padding: 12px 12px 12px 45px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        color: #333;
+        transition: border-color 0.2s ease;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+
+    .phone-input-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .country-code {
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        background-color: #f5f5f5;
+        color: #666;
+    }
+
+    .phone-input-group input {
+        border-radius: 0 8px 8px 0;
+        padding-left: 12px;
+    }
+
+    .btn-register-form {
+        width: 100%;
+        padding: 15px;
+        background-color: #3F3D56;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-register-form:hover {
+        background-color: #2F2E41;
+    }
+
+    @media (max-width: 768px) {
+        .registration-popup-content {
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+
+        .popup-left {
+            display: none;
+            /* Hide the left side on mobile for space */
+        }
+
+        .popup-right {
+            padding: 2rem 1rem;
+        }
+
+        .form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+</style>
+<body>
+
+    <%- include('components/header') %>
+    <%- include('components/regForm') %>
+
+    <div class="banner">
+        <div class="banner-text">
+            <h1><%= course.category %> <span>Internship</span><br><span>Program</span></h1>
+        </div>
+    </div>
+
+    <div class="main-page-content">
+        <div id="figma-content" class="course-content page-container active-content">
+            <main class="main-content">
+                <header class="course-header">
+                    <h1><%= course.title%> Program</h1>
+                    <p><%= course.description%></p>
+                </header>
+                <section class="course-includes">
+                    <h2>This course includes</h2>
+                    <div class="features-grid">
+                        <div class="feature-box">
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-video"></i></div>
+                            <h3>Live/Recorded lectures</h3>
+                            <img src="/images/details/chat.png" alt="Live classes schedule" class="feature-image">
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                            <h3>Access on mobile & desktop</h3>
+                            <img src="/images/details/access.png" alt="Access on mobile and desktop" class="feature-image">
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-comments"></i></div>
+                            <h3>Group discussion with mentors</h3>
+                            <img src="/images/details/gd.png" alt="Group discussion chat" class="feature-image">
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-user-tie"></i></div>
+                            <h3>Learn from industry specialist</h3>
+                            <img src="/images/details/expert.png" alt="Industry specialists" class="feature-image">
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-icon-wrapper"><i class="fa-solid fa-certificate"></i></div>
+                            <h3>Certificate of Completion</h3>
+                            <img src="/images/details/certificate.png" alt="Certificate of completion" class="feature-image">
+                        </div>
+                    </div>
+                    <a href="<%= course.curriculum%>" class="btn-download">
+                        <i class="fa-solid fa-download"></i>
+                        Download Curriculum
+                    </a>
+                </section>
+            </main>
+            <aside class="sidebar">
+                <div class="card course-details-card">
+                    <span class="badge">Internship assistance</span>
+                    <div class="card-header">
+                        <img src="<%= course.image %>" alt="Figma logo" class="logo">
+                        <div class="course-title">
+                            <h4><%= course.title %></h4>
+                            <span>Internship program</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                    </div>
+                    <div class="members">
+                        <div class="member-avatars">
+                            <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
+                            <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
+                            <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
+                        </div>
+                        <span>Join 867+ Members</span>
+                    </div>
+                    <div class="plan-tabs">
+                        <button class="tab-btn">Basic plan</button>
+                        <button class="tab-btn active">Advance plan <i class="fa-solid fa-bolt"></i></button>
+                    </div>
+                    <ul class="program-features">
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.duration %> weeks duration</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.level %> level program</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.Nmin %> minor + <%= course.Nmax %> major project</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter + Certificate</li>
+                        <li class="highlighted"><i class="fa-solid fa-circle-plus icon-highlight"></i> Live programs</li>
+                    </ul>
+                    <div class="pricing">
+                        <span class="current-price">₹<%= course.price %>/-</span>
+                        <span class="original-price">₹999/-</span>
+                    </div>
+                    <button class="btn btn-enroll">Enroll now</button>
+                </div>
+                <div class="card mentor-card">
+                    <h5>Your mentor</h5>
+                    <div class="mentor-image-wrapper">
+                        <img src="<%= course.instructor.profileImage %>" alt="Mentor image">
+                    </div>
+                    <h6><%= course.instructor.name %></h6>
+                    <p class="mentor-title"><%= course.instructor.expertise %></p>
+                    <a href="<%= course.instructor.linkedIn %>" class="linkedin-btn" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </aside>
+        </div>
+
+        <div id="photoshop-content" class="course-content">
+            <div class="placeholder-content">
+                 <h2>Photoshop Course Details Coming Soon... 🖌️</h2>
+                 <p>Get ready to master the art of digital imaging.</p>
+            </div>
+        </div>
+
+        <div id="autocad-content" class="course-content">
+             <div class="placeholder-content">
+                 <h2>AutoCAD Course Details Coming Soon... 📐</h2>
+                 <p>Learn the industry standard for 2D and 3D design.</p>
+            </div>
+        </div>
+        
+        <div id="more-content" class="course-content">
+             <div class="placeholder-content">
+                 <h2>More Exciting Courses Coming Soon! ⭐</h2>
+                 <p>We are constantly working on bringing new learning opportunities.</p>
+            </div>
+        </div>
+    </div>
+
+    <%- include('components/faq') %>
+
+    <%- include('components/footer') %>
+
+       
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // --- Tab Navigation Logic for Courses ---
+        const navItems = document.querySelectorAll('.nav-item');
+        const contentSections = document.querySelectorAll('.course-content');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Handle active class for nav items
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+
+                // Get the target content ID from data-attribute
+                const targetId = item.getAttribute('data-content') + '-content';
+
+                // Hide all content sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active-content');
+                });
+
+                // Show the target content section
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active-content');
+                }
+            });
+        });
+
+        // --- FAQ Accordion Logic ---
+        const accordionItems = document.querySelectorAll('.accordion-item');
+
+        // Function to open the first item by default
+        const openFirstItem = () => {
+            if (accordionItems.length > 0) {
+                const firstItem = accordionItems[0];
+                const content = firstItem.querySelector('.accordion-content');
+                // Manually set the max-height to its scroll height to show it instantly
+                if (content) {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            }
+        };
+        
+        openFirstItem();
+
+        accordionItems.forEach(item => {
+            const button = item.querySelector('.accordion-button');
+            const content = item.querySelector('.accordion-content');
+
+            if (button && content) {
+                button.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+
+                    // Close all other items
+                    accordionItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        const otherContent = otherItem.querySelector('.accordion-content');
+                        if (otherContent) {
+                            otherContent.style.maxHeight = null;
+                        }
+                    });
+
+                    // If the clicked item was not already active, open it
+                    if (!isActive) {
+                        item.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
+                });
+            }
+        });
+
+        // --- Registration Pop-up Logic ---
+        // Select all buttons that should open the pop-up
+        const enrollBtns = document.querySelectorAll('.btn-enroll, .btn-register, .btn-enroll-cta');
+        const popupOverlay = document.querySelector('.registration-popup-overlay');
+        const closeBtn = document.querySelector('.popup-close-btn');
+        const popupCloseOverlay = document.querySelector('.registration-popup-overlay');
+
+        // Add a click listener to each button to show the popup
+        enrollBtns.forEach(btn => {
+            btn.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (popupOverlay) {
+                    popupOverlay.classList.add('active');
+                }
+            });
+        });
+
+        // Add event listeners for closing the popup
+        if (closeBtn && popupOverlay) {
+            closeBtn.addEventListener('click', () => {
+                popupOverlay.classList.remove('active');
+            });
+            // This listener closes the popup when clicking on the overlay itself
+            popupCloseOverlay.addEventListener('click', (event) => {
+                if (event.target === popupCloseOverlay) {
+                    popupCloseOverlay.classList.remove('active');
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
