@@ -419,11 +419,29 @@
     <%- include('components/faq') %>
 
     <%- include('components/footer') %>
-
-       
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
+        // --- MOBILE NAVIGATION TOGGLE (HAMBURGER MENU) ---
+        const navToggle = document.querySelector('.mobile-nav-toggle');
+        const mainNav = document.querySelector('.main-nav');
+        const registerBtnHeader = document.querySelector('.btn-register');
+
+        if (navToggle && mainNav && registerBtnHeader) {
+            navToggle.addEventListener('click', (event) => {
+                event.stopPropagation();
+                mainNav.classList.toggle('active');
+                registerBtnHeader.classList.toggle('active');
+            });
+
+            window.addEventListener('click', (event) => {
+                if (mainNav.classList.contains('active') && !mainNav.contains(event.target) && !navToggle.contains(event.target)) {
+                    mainNav.classList.remove('active');
+                    registerBtnHeader.classList.remove('active');
+                }
+            });
+        }
+        
         // --- Tab Navigation Logic for Courses ---
         const navItems = document.querySelectorAll('.nav-item');
         const contentSections = document.querySelectorAll('.course-content');

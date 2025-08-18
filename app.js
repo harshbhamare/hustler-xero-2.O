@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const mongoURI = 'mongodb://127.0.0.1:27017/hustlerXERO';
+const router = express.Router();
 
 const app = express();
 
@@ -30,6 +31,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 const registerRouter = require("./routes/studentRegister")
 const homeRouter = require("./routes/homeRouter")
 const adminRouter = require("./routes/adminRouter")
@@ -44,10 +47,11 @@ app.use("/get-reg-form", registerRouter)
 app.use("/dashboard", adminRouter)
 app.use('/courses', courseRoutes);
 app.use("/", courseRoutes)
-app.use("/", courseRoutes)
 app.use("/", detailsRouter)
 
-
+// app.get('*', (req, res) => {
+//   res.redirect('/');
+// });
 
 connectDB()
 app.listen(port, () => {
