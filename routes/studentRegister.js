@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const studentModel = require("../models/studentModel")
 const Course = require('../models/courseModel');
+const { sendRegistrationEmail } = require('../utils/emailService');
 
 
 router.get("/", (req, res) => {
@@ -37,12 +38,14 @@ router.post("/", async (req, res) => {
         });
 
         const savedStudent = await newStudent.save();
+        sendRegistrationEmail(email, firstName);
 
         // console.log("New student registration saved:", savedStudent);
-        res.status(201).json({ 
-            message: "Student registered successfully!",
-            data: savedStudent
-        });
+        // res.status(201).json({ 
+        //     message: "Student registered successfully!",
+        //     data: savedStudent
+        // });
+        res.redirect("/")
 
     } catch (err) {
         console.error("Error saving student registration:", err);
