@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XEROship Homepage</title>
+    <title>Hustler.XERO : Explore wide range of Real World Projects</title>
     <link rel="icon" type="image/x-icon" href="/images/favi.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -350,15 +350,17 @@
 
                     <!-- Program Tabs Navigation -->
                     <div class="program-tabs">
+                         <button class="program-tab" data-tab="development">
+                            <i class="fas fa-code"></i> Development programs
+                        </button>
+                         <button class="program-tab" data-tab="social">
+                            <i class="fas fa-share-alt"></i> CAD/CAM programs
+                        </button>
                         <button class="program-tab active" data-tab="design">
                             <i class="fas fa-palette"></i> Design programs
                         </button>
-                        <button class="program-tab" data-tab="development">
-                            <i class="fas fa-code"></i> Development programs
-                        </button>
-                        <button class="program-tab" data-tab="social">
-                            <i class="fas fa-share-alt"></i> CAD/CAM programs
-                        </button>
+                       
+                       
                         <div class="program-tab-placeholder">
                             <i class="fas fa-star"></i> More coming soon
                         </div>
@@ -368,9 +370,10 @@
                     <div class="tab-content">
     <%
         // Categorize courses into separate arrays. The EJS tag is now correctly opened and closed.
-        const designCourses = courses.filter(course => course.category === 'Design');
         const developmentCourses = courses.filter(course => course.category === 'Development');
         const socialMediaCourses = courses.filter(course => course.category === 'CAD/CAM');
+        const designCourses = courses.filter(course => course.category === 'Design');      
+        
     %>
 
     <div id="design-content" class="course-grid active">
@@ -397,7 +400,7 @@
                         <span>Join 867+ Members</span>
                     </div>
                     <div class="plan-tabs">
-                        <button class="tab-btn">Basic plan</button>
+                        <button class="tab-btn">Hustle starts here</button>
                         <button class="tab-btn active">Advance plan <i class="fa-solid fa-bolt"></i></button>
                     </div>
                     <ul class="program-features">
@@ -444,7 +447,7 @@
                         <span>Join 867+ Members</span>
                     </div>
                     <div class="plan-tabs">
-                        <button class="tab-btn">Basic plan</button>
+                        <button class="tab-btn">Hustle starts here</button>
                         <button class="tab-btn active">Advance plan <i class="fa-solid fa-bolt"></i></button>
                     </div>
                     <ul class="program-features">
@@ -491,7 +494,7 @@
                         <span>Join 867+ Members</span>
                     </div>
                     <div class="plan-tabs">
-                        <button class="tab-btn">Basic plan</button>
+                        <button class="tab-btn">Hustle starts here</button>
                         <button class="tab-btn active">Advance plan <i class="fa-solid fa-bolt"></i></button>
                     </div>
                     <ul class="program-features">
