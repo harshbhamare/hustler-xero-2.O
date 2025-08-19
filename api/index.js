@@ -19,7 +19,7 @@ mongoose.connect(dbURI, {
 
 
 
-module.exports = connectDB;
+// module.exports = connectDB;
 
 const port = 3000;
 
