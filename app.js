@@ -3,6 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const mongoURI = 'mongodb://127.0.0.1:27017/hustlerXERO';
 const router = express.Router();
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
 
 
 
@@ -39,6 +41,8 @@ const adminRouter = require("./routes/adminRouter")
 const courseRoutes = require('./routes/courseRouter');
 const aboutRouter = require("./routes/aboutRouter")
 const detailsRouter = require("./routes/detailsRouter")
+const adminLogin = require("./routes/adminLogin");
+const adminSignup = require("./routes/adminSignup");
 
 app.use("/", homeRouter)
 app.use("/", aboutRouter)
@@ -48,6 +52,8 @@ app.use("/dashboard", adminRouter)
 app.use('/courses', courseRoutes);
 app.use("/", courseRoutes)
 app.use("/", detailsRouter)
+app.use("/login-admin", adminLogin);
+app.use("/signup-admin", adminSignup);
 
 // app.get('*', (req, res) => {
 //   res.redirect('/');

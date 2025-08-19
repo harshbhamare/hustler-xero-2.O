@@ -3,34 +3,33 @@ const router = express.Router();
 const Student = require('../models/studentModel');
 const courses = require('../models/courseModel');
 const Course = require('../models/courseModel');
+const isAuthenticated = require('../middlewares/auth');
 const { sendPaymentConfirmationEmail } = require('../utils/emailService');
 
 
 
-router.post('/add', async (req, res) => {
+router.post('/add', isAuthenticated, async (req, res) => {
     const {
         title, category, level, duration, price, Nmin, Nmax, description, curriculum,
         image,
-        instructorName, // Correctly destructuring the name from the form
+        instructorName, 
         expertise,
         linkedIn,
-        profileImage // Correctly destructuring the image URL
+        profileImage 
     } = req.body;
 
     try {
-        // Create an instructor object with the correct field names to match the schema.
         const instructor = {
-            name: instructorName, // <-- This is the fix. 'name' is assigned 'instructorName' from the form
+            name: instructorName, 
             expertise: expertise,
             linkedIn: linkedIn,
-            profileImage: profileImage // <-- This is also fixed
+            profileImage: profileImage
         };
 
-        // Create a new Course document with the correctly structured data.
         const newCourse = new courses({
             title, category, level, duration, price, Nmin, Nmax, description, curriculum,
             image,
-            instructor // <-- Pass the correctly structured 'instructor' object
+            instructor
         });
 
         await newCourse.save();
@@ -48,46 +47,37 @@ router.post('/add', async (req, res) => {
     }
 });
 
-router.post("/update-status/:id", async (req, res) => {
+router.post("/update-status/:id", isAuthenticated, async (req, res) => {
     try {
         const studentId = req.params.id;
         const { trnNumber, amountPaid, status } = req.body;
 
-        // 1. Find the student by ID. We use `findById` to get the original student data.
         const student = await Student.findById(studentId);
 
         if (!student) {
             return res.status(404).send("Student not found.");
         }
 
-        // 2. We assume the first course in the enrolledCourses array is the one we care about.
-        // The value in this array is the course title, not an ID.
         const courseTitle = student.enrolledCourses[0];
 
         if (!courseTitle) {
             return res.status(404).send("Enrolled course not found on student record.");
         }
 
-        // 3. Update the student's record with the new payment information.
-        // We do this after getting the necessary data for the email.
         const updatedStudent = await Student.findByIdAndUpdate(
             studentId, 
             { trnNumber, amountPaid, status }, 
             { new: true }
         );
 
-        // 4. Send the payment confirmation email.
-        // We use the `student` object's email and firstName, and the `courseTitle` we extracted.
         sendPaymentConfirmationEmail(
             student.email,
             student.firstName,
-            courseTitle, // Directly use the course title from the student's record
+            courseTitle,
             amountPaid,
             trnNumber
         );
 
-        // 5. Fetch all students for the admin view and re-render the page.
-        // We need to fetch the courses here to pass them to the EJS template.
         const allStudents = await Student.find({});
         const allCourses = await Course.find({});
 
