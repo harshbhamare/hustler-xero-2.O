@@ -8,11 +8,12 @@
     <link rel="icon" type="image/x-icon" href="/images/favi.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/stylesheets/index.css">
-    
+
 
 
 </head>
@@ -272,18 +273,18 @@
         background-color: #2F2E41;
     }
 
-   @media (max-width: 768px) {
+    @media (max-width: 768px) {
 
 
-    .registration-form {
-        gap: 1rem;
+        .registration-form {
+            gap: 1rem;
+        }
+
+        .form-row {
+            flex-direction: column;
+            gap: 1rem;
+        }
     }
-
-    .form-row {
-        flex-direction: column;
-        gap: 1rem; 
-    }
-}
 </style>
 
 <body>
@@ -338,6 +339,30 @@
                                 <h3>Stand-Out Skills</h3>
                                 <p>Gain invaluable skills and mentorship that set you apart in the job market.</p>
                             </div>
+                            <div class="feature-item">
+                                <div class="icon-wrapper">
+                                    <!-- Replace with your image path -->
+                                    <img src="/images/home/featureFour.jpg" alt="Stand-Out Skills">
+                                </div>
+                                <h3>Stand-Out Skills</h3>
+                                <p>Gain invaluable skills and mentorship that set you apart in the job market.</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="icon-wrapper">
+                                    <!-- Replace with your image path -->
+                                    <img src="/images/home/featureFive.jpg" alt="Stand-Out Skills">
+                                </div>
+                                <h3>Stand-Out Skills</h3>
+                                <p>Gain invaluable skills and mentorship that set you apart in the job market.</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="icon-wrapper">
+                                    <!-- Replace with your image path -->
+                                    <img src="/images/home/featureSix.jpg" alt="Stand-Out Skills">
+                                </div>
+                                <h3>Stand-Out Skills</h3>
+                                <p>Gain invaluable skills and mentorship that set you apart in the job market.</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -350,17 +375,17 @@
 
                     <!-- Program Tabs Navigation -->
                     <div class="program-tabs">
-                         <button class="program-tab" data-tab="development">
+                        <button class="program-tab" data-tab="development">
                             <i class="fas fa-code"></i> Development programs
                         </button>
-                         <button class="program-tab" data-tab="social">
+                        <button class="program-tab" data-tab="social">
                             <i class="fas fa-share-alt"></i> CAD/CAM programs
                         </button>
                         <button class="program-tab active" data-tab="design">
                             <i class="fas fa-palette"></i> Design programs
                         </button>
-                       
-                       
+
+
                         <div class="program-tab-placeholder">
                             <i class="fas fa-star"></i> More coming soon
                         </div>
@@ -368,155 +393,199 @@
 
                     <!-- Tab Content -->
                     <div class="tab-content">
-    <%
-        // Categorize courses into separate arrays. The EJS tag is now correctly opened and closed.
-        const developmentCourses = courses.filter(course => course.category === 'Development');
-        const socialMediaCourses = courses.filter(course => course.category === 'CAD/CAM');
-        const designCourses = courses.filter(course => course.category === 'Design');      
-        
-    %>
+                        <% // Categorize courses into separate arrays. The EJS tag is now correctly opened and closed.
+                            const developmentCourses=courses.filter(course=> course.category === 'Development');
+                            const socialMediaCourses = courses.filter(course => course.category === 'CAD/CAM');
+                            const designCourses = courses.filter(course => course.category === 'Design');
 
-    <div id="design-content" class="course-grid active">
-        <% if (designCourses.length > 0) { %>
-            <% designCourses.forEach(course => { %>
-                <div class="course-card">
-                    <span class="card-badge">Expert Internship</span>
-                    <div class="card-header">
-                        <img src="<%= course.image %>" alt="<%= course.title %> logo" class="logo">
-                        <div class="course-title">
-                            <h4><%= course.title %></h4>
-                            <span>Xeroship program</span>
-                        </div>
-                        <div class="rating">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
-                        </div>
-                    </div>
-                    <div class="members">
-                        <div class="member-avatars">
-                            <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
-                            <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
-                            <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
-                        </div>
-                        <span>Join 867+ Members</span>
-                    </div>
-                    <div class="plan-tabs">
-                        <button class="tab-btn">Hustle starts here</button>
-                        <button class="tab-btn active">Advance plan <i class="fa-solid fa-bolt"></i></button>
-                    </div>
-                    <ul class="program-features">
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.duration %> weeks duration</li>
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.level %> level program</li>
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.Nmin %> minor + <%= course.Nmax %> major project</li>
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter + Certificate</li>
-                        <li class="highlighted"><i class="fa-solid fa-circle-plus icon-highlight"></i> Live programs</li>
-                    </ul>
-                    <div class="pricing">
-                        <span class="current-price">₹<%= course.price %>/-</span>
-                        <span class="original-price">₹999/-</span>
-                    </div>
-                    <button class="btn-enroll">Enroll now</button>
-                    <a href="/details/<%= course._id%>" class="more-details">More details</a>
-                </div>
-            <% }); %>
-        <% } else { %>
-            <p>No design programs available at the moment.</p>
-        <% } %>
-    </div>
+                            %>
 
-    <div id="development-content" class="course-grid">
-        <% if (developmentCourses.length > 0) { %>
-            <% developmentCourses.forEach(course => { %>
-                <div class="course-card">
-                    <span class="card-badge">Expert Internship</span>
-                    <div class="card-header">
-                        <img src="<%= course.image %>" alt="<%= course.title %> logo" class="logo">
-                        <div class="course-title">
-                            <h4><%= course.title %></h4>
-                            <span>Xeroship program</span>
-                        </div>
-                        <div class="rating">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
-                        </div>
-                    </div>
-                    <div class="members">
-                        <div class="member-avatars">
-                            <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
-                            <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
-                            <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
-                        </div>
-                        <span>Join 867+ Members</span>
-                    </div>
-                    <div class="plan-tabs">
-                        <button class="tab-btn">Hustle starts here</button>
-                        <button class="tab-btn active">Advance plan <i class="fa-solid fa-bolt"></i></button>
-                    </div>
-                    <ul class="program-features">
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.duration %> weeks duration</li>
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.level %> level program</li>
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.Nmin %> minor + <%= course.Nmax %> major project</li>
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter + Certificate</li>
-                        <li class="highlighted"><i class="fa-solid fa-circle-plus icon-highlight"></i> Live programs</li>
-                    </ul>
-                    <div class="pricing">
-                        <span class="current-price">₹<%= course.price %>/-</span>
-                        <span class="original-price">₹999/-</span>
-                    </div>
-                    <button class="btn-enroll">Enroll now</button>
-                    <a href="/details/<%= course._id%>" class="more-details">More details</a>
-                </div>
-            <% }); %>
-        <% } else { %>
-            <p>No development programs available at the moment.</p>
-        <% } %>
-    </div>
+                            <div id="design-content" class="course-grid active">
+                                <% if (designCourses.length> 0) { %>
+                                    <% designCourses.forEach(course=> { %>
+                                        <div class="course-card">
+                                            <span class="card-badge">Expert Internship</span>
+                                            <div class="card-header">
+                                                <img src="<%= course.image %>" alt="<%= course.title %> logo"
+                                                    class="logo">
+                                                <div class="course-title">
+                                                    <h4>
+                                                        <%= course.title %>
+                                                    </h4>
+                                                    <span>Xeroship program</span>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star-half-stroke"></i>
+                                                </div>
+                                            </div>
+                                            <div class="members">
+                                                <div class="member-avatars">
+                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
+                                                    <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
+                                                    <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
+                                                </div>
+                                                <span>Join 867+ Members</span>
+                                            </div>
+                                            <div class="plan-tabs">
+                                                <button class="tab-btn">Hustle starts here</button>
+                                                <button class="tab-btn active">Advance plan <i
+                                                        class="fa-solid fa-bolt"></i></button>
+                                            </div>
+                                            <ul class="program-features">
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.duration %> weeks duration
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.level %> level program
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.Nmin %> minor + <%= course.Nmax %> major project
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter +
+                                                    Certificate</li>
+                                                <li class="highlighted"><i
+                                                        class="fa-solid fa-circle-plus icon-highlight"></i> Live
+                                                    programs</li>
+                                            </ul>
+                                            <div class="pricing">
+                                                <span class="current-price">₹<%= course.price %>/-</span>
+                                                <span class="original-price">₹999/-</span>
+                                            </div>
+                                            <button class="btn-enroll">Enroll now</button>
+                                            <a href="/details/<%= course._id%>" class="more-details">More details</a>
+                                        </div>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <p>No design programs available at the moment.</p>
+                                                <% } %>
+                            </div>
 
-    <div id="social-content" class="course-grid">
-        <% if (socialMediaCourses.length > 0) { %>
-            <% socialMediaCourses.forEach(course => { %>
-                <div class="course-card">
-                    <span class="card-badge">Expert Internship</span>
-                    <div class="card-header">
-                        <img src="<%= course.image %>" alt="<%= course.title %> logo" class="logo">
-                        <div class="course-title">
-                            <h4><%= course.title %></h4>
-                            <span>Xeroship program</span>
-                        </div>
-                        <div class="rating">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
-                        </div>
+                            <div id="development-content" class="course-grid">
+                                <% if (developmentCourses.length> 0) { %>
+                                    <% developmentCourses.forEach(course=> { %>
+                                        <div class="course-card">
+                                            <span class="card-badge">Expert Internship</span>
+                                            <div class="card-header">
+                                                <img src="<%= course.image %>" alt="<%= course.title %> logo"
+                                                    class="logo">
+                                                <div class="course-title">
+                                                    <h4>
+                                                        <%= course.title %>
+                                                    </h4>
+                                                    <span>Xeroship program</span>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star-half-stroke"></i>
+                                                </div>
+                                            </div>
+                                            <div class="members">
+                                                <div class="member-avatars">
+                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
+                                                    <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
+                                                    <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
+                                                </div>
+                                                <span>Join 867+ Members</span>
+                                            </div>
+                                            <div class="plan-tabs">
+                                                <button class="tab-btn">Hustle starts here</button>
+                                                <button class="tab-btn active">Advance plan <i
+                                                        class="fa-solid fa-bolt"></i></button>
+                                            </div>
+                                            <ul class="program-features">
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.duration %> weeks duration
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.level %> level program
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.Nmin %> minor + <%= course.Nmax %> major project
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter +
+                                                    Certificate</li>
+                                                <li class="highlighted"><i
+                                                        class="fa-solid fa-circle-plus icon-highlight"></i> Live
+                                                    programs</li>
+                                            </ul>
+                                            <div class="pricing">
+                                                <span class="current-price">₹<%= course.price %>/-</span>
+                                                <span class="original-price">₹999/-</span>
+                                            </div>
+                                            <button class="btn-enroll">Enroll now</button>
+                                            <a href="/details/<%= course._id%>" class="more-details">More details</a>
+                                        </div>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <p>No development programs available at the moment.</p>
+                                                <% } %>
+                            </div>
+
+                            <div id="social-content" class="course-grid">
+                                <% if (socialMediaCourses.length> 0) { %>
+                                    <% socialMediaCourses.forEach(course=> { %>
+                                        <div class="course-card">
+                                            <span class="card-badge">Expert Internship</span>
+                                            <div class="card-header">
+                                                <img src="<%= course.image %>" alt="<%= course.title %> logo"
+                                                    class="logo">
+                                                <div class="course-title">
+                                                    <h4>
+                                                        <%= course.title %>
+                                                    </h4>
+                                                    <span>Xeroship program</span>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star-half-stroke"></i>
+                                                </div>
+                                            </div>
+                                            <div class="members">
+                                                <div class="member-avatars">
+                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
+                                                    <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
+                                                    <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
+                                                </div>
+                                                <span>Join 867+ Members</span>
+                                            </div>
+                                            <div class="plan-tabs">
+                                                <button class="tab-btn">Hustle starts here</button>
+                                                <button class="tab-btn active">Advance plan <i
+                                                        class="fa-solid fa-bolt"></i></button>
+                                            </div>
+                                            <ul class="program-features">
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.duration %> weeks duration
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.level %> level program
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.Nmin %> minor + <%= course.Nmax %> major project
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter +
+                                                    Certificate</li>
+                                                <li class="highlighted"><i
+                                                        class="fa-solid fa-circle-plus icon-highlight"></i> Live
+                                                    programs</li>
+                                            </ul>
+                                            <div class="pricing">
+                                                <span class="current-price">₹<%= course.price %>/-</span>
+                                                <span class="original-price">₹999/-</span>
+                                            </div>
+                                            <button class="btn-enroll">Enroll now</button>
+                                            <a href="/details/<%= course._id%>" class="more-details">More details</a>
+                                        </div>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <p>No social media programs available at the moment.</p>
+                                                <% } %>
+                            </div>
                     </div>
-                    <div class="members">
-                        <div class="member-avatars">
-                            <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
-                            <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
-                            <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
-                        </div>
-                        <span>Join 867+ Members</span>
-                    </div>
-                    <div class="plan-tabs">
-                        <button class="tab-btn">Hustle starts here</button>
-                        <button class="tab-btn active">Advance plan <i class="fa-solid fa-bolt"></i></button>
-                    </div>
-                    <ul class="program-features">
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.duration %> weeks duration</li>
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.level %> level program</li>
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.Nmin %> minor + <%= course.Nmax %> major project</li>
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter + Certificate</li>
-                        <li class="highlighted"><i class="fa-solid fa-circle-plus icon-highlight"></i> Live programs</li>
-                    </ul>
-                    <div class="pricing">
-                        <span class="current-price">₹<%= course.price %>/-</span>
-                        <span class="original-price">₹999/-</span>
-                    </div>
-                    <button class="btn-enroll">Enroll now</button>
-                    <a href="/details/<%= course._id%>" class="more-details">More details</a>
-                </div>
-            <% }); %>
-        <% } else { %>
-            <p>No social media programs available at the moment.</p>
-        <% } %>
-    </div>
-</div>
                 </section>
 
                 <!-- ================================== -->
@@ -599,8 +668,8 @@
                             <div class="feature-card community-card">
                                 <div class="community-content">
                                     <h3>Join Our Xero Community</h3>
-                                    <a href="#" class="btn-community">Join community <i
-                                            class="fas fa-check-circle"></i></a>
+                                    <a href="https://chat.whatsapp.com/HlnDtaKKub6AGqfeghnPON?mode=ac_t"
+                                        class="btn-community">Join community <i class="fas fa-check-circle"></i></a>
                                     <ul>
                                         <li><i class="fas fa-check-circle"></i> Get Daily Updates</li>
                                         <li><i class="fas fa-check-circle"></i> Live Chat Support</li>
@@ -621,68 +690,74 @@
                                         <!-- Testimonial 1 -->
                                         <div class="swiper-slide">
                                             <div class="testimonial-content">
-                                                <p>"Lorem ipsum has been the industry's standard dummy text ever since
-                                                    the
-                                                    1500s, when an unknown printer took a galley of type and scrambled
-                                                    it to
-                                                    make a type."</p>
+                                                <p>"The Hands-On Projects, Real-World Examples, And Detailed
+                                                    Explanations Significantly Enhanced My Skills And Boosted My
+                                                    Confidence.
+                                                    <br> <br>
+                                                    I Highly Recommend This Course To Anyone Looking To Upgrade Their
+                                                    Frontend Development Skills!"
+                                                </p>
                                                 <div class="testimonial-author">
-                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg"
-                                                        alt="Arinze Onyebuchi">
+                                                    <img src="/images/testimonial/sneha.png" alt="Sneha Gandewar">
                                                     <div class="author-details">
-                                                        <strong>Arinze Onyebuchi</strong>
-                                                        <span>Product Designer</span>
+                                                        <strong>Sneha Gandewar</strong>
+                                                        <span>Frontend Developer</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="testimonial-content">
-                                                <p>"Lorem ipsum has been the industry's standard dummy text ever since
-                                                    the
-                                                    1500s, when an unknown printer took a galley of type and scrambled
-                                                    it to
-                                                    make a type."</p>
+                                                <p>"Joining Hustler.XERO As A UX/UI Lead Designer Was A Transformative
+                                                    First Internship That Strengthened My Design, Problem-Solving, And
+                                                    Teamwork Skills.
+                                                    <br><br>
+                                                    I Mastered Figma, Gained Insights Into User Behavior, And Honed Time
+                                                    Management And Communication."
+                                                </p>
                                                 <div class="testimonial-author">
-                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg"
-                                                        alt="Arinze Onyebuchi">
+                                                    <img src="/images/testimonial/anushka.png" alt="Anushka Sawai">
                                                     <div class="author-details">
-                                                        <strong>Arinze Onyebuchi</strong>
-                                                        <span>Product Designer</span>
+                                                        <strong>Anushka Sawai</strong>
+                                                        <span>Lead UI/UX Designer</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="testimonial-content">
-                                                <p>"Lorem ipsum has been the industry's standard dummy text ever since
-                                                    the
-                                                    1500s, when an unknown printer took a galley of type and scrambled
-                                                    it to
-                                                    make a type."</p>
+                                                <p>"
+                                                    As A Frontend Development Team Lead, I Found Hustler.XERO To Be A
+                                                    Reliable Platform That Streamlined Our Workflow And Enabled Us To
+                                                    Deliver High-Quality Solutions Efficiently.
+                                                    <br><br>
+                                                    Its Intuitive Design And Robust Features Are Commendable. However,
+                                                    Enhanced Documentation With Step-By-Step Guides And Examples Would
+                                                    Make It Even More Accessible For Teams Tackling Complex Projects."
+                                                </p>
                                                 <div class="testimonial-author">
-                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg"
-                                                        alt="Arinze Onyebuchi">
+                                                    <img src="/images/testimonial/vallabh.png" alt="Vallabh Pandav">
                                                     <div class="author-details">
-                                                        <strong>Arinze Onyebuchi</strong>
-                                                        <span>Product Designer</span>
+                                                        <strong>Vallabh Pandav</strong>
+                                                        <span>Lead Frontend Developer</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="testimonial-content">
-                                                <p>"Lorem ipsum has been the industry's standard dummy text ever since
-                                                    the
-                                                    1500s, when an unknown printer took a galley of type and scrambled
-                                                    it to
-                                                    make a type."</p>
+                                                <p>"My Internship At Hustler.XERO Boosted My Technical And Soft Skills
+                                                    Through Hands-On Projects And Incredible Team Support.
+                                                    <br><br>
+                                                    The Collaborative Environment Helped Me Tackle Challenges Like
+                                                    Managing Deadlines While Enhancing My Confidence, Teamwork, And Time
+                                                    Management."</p>
                                                 <div class="testimonial-author">
-                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg"
-                                                        alt="Arinze Onyebuchi">
+                                                    <img src="/images/testimonial/nimisha.png"
+                                                        alt="Nimisha Deshpande">
                                                     <div class="author-details">
-                                                        <strong>Arinze Onyebuchi</strong>
-                                                        <span>Product Designer</span>
+                                                        <strong>Nimisha Deshpande</strong>
+                                                        <span>Junior Frontend Developer</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -690,14 +765,19 @@
                                         <!-- Testimonial 2 -->
                                         <div class="swiper-slide">
                                             <div class="testimonial-content">
-                                                <p>"A fantastic learning experience with great mentors. The hands-on
-                                                    projects were invaluable and really boosted my portfolio. Highly
-                                                    recommended for aspiring designers!"</p>
+                                                <p>"The Mentor Was Incredibly Supportive, Always Addressing Doubts And
+                                                    Pushing Us To Do Our Best.
+                                                    The Hands-On Projects And Constructive Feedback Helped Me Grow
+                                                    Significantly.
+                                                    <br><br>
+                                                    Highly Recommend This Course For Anyone Looking To Level Up Their
+                                                    Frontend Skills!"
+                                                </p>
                                                 <div class="testimonial-author">
-                                                    <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Jane Doe">
+                                                    <img src="/images/testimonial/sanchit.png" alt="sanchit nerkar">
                                                     <div class="author-details">
-                                                        <strong>Jane Doe</strong>
-                                                        <span>UX Researcher</span>
+                                                        <strong>Sanchit Nerkar</strong>
+                                                        <span>Frontend Developer</span>
                                                     </div>
                                                 </div>
                                             </div>

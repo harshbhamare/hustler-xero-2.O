@@ -313,3 +313,9 @@ body {
         font-size: 2rem;
     }
 }
+
+
+.hero-content span a{
+    text-decoration: none;
+    color: black;
+}

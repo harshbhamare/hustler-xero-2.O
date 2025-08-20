@@ -61,8 +61,8 @@ app.use("/", contactRouter)
 app.use("/", refundRouter)
 
 
-// app.listen(port, () => {
-//   console.log(`Admin dashboard is running at http://localhost:${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Admin dashboard is running at http://localhost:${port}`);
+});
 
-module.exports = app;
+// module.exports = app;
