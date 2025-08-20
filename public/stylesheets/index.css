@@ -71,7 +71,7 @@
 .btn-explore {
     background-color: var(--white);
     color: var(--primary-dark);
-    padding: 1rem 2rem;
+    padding: 0.6rem 1rem;
     border-radius: 99px;
     text-decoration: none;
     font-weight: 600;
@@ -108,7 +108,7 @@
 .why-choose-us h2 {
     font-size: 2.5rem;
     font-weight: 600;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     color: #42519C;
 }
 
@@ -204,12 +204,12 @@
     }
 
     .hero-content h1 {
-        font-size: 2.5rem;
+        font-size: 2.0rem;
     }
 
     .why-choose-us {
         /* padding: 4rem 0; */
-        padding: 6rem 25px;
+        padding: 4rem 5px;
         text-align: left;
     }
 
@@ -349,7 +349,7 @@
 }
 
 /* All inner card elements, ensuring they are identical to the sidebar card */
-.course-card .card-header { display: flex; align-items: center; gap: 1rem; margin-top: 15px; }
+.course-card .card-header { display: flex; align-items: center; gap: 1rem; margin-top: 40px; }
 .course-card .logo { width: 48px; height: 48px; }
 .course-card .course-title { text-align: left; }
 .course-card .course-title h4 { font-size: 1.1rem; font-weight: 600; }

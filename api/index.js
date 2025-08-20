@@ -1,38 +1,36 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const mongoURI = process.env.MONGO_URI;
 const router = express.Router();
 const cookieParser = require('cookie-parser');
+
+const dotenv = require('dotenv');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const app = express();
 
 const dbURI = process.env.MONGO_URI; 
 
-mongoose.connect(dbURI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log(err));
+if (!dbURI) {
+    console.error('FATAL ERROR: MONGO_URI is not defined in the .env file.');
+    process.exit(1);
+}
 
-
-
-
-// module.exports = connectDB;
+mongoose.connect(dbURI)
+    .then(() => console.log('MongoDB connected successfully'))
+    .catch(err => {
+        console.error('MongoDB connection failed:', err);
+        process.exit(1);
+    });
 
 const port = 3000;
 
 app.set('view engine', 'ejs');
-// app.set('views', path.join(__dirname, 'views'));
 app.set('views', path.join(__dirname, '../views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(cookieParser());
-
-
 
 const registerRouter = require("../routes/studentRegister")
 const homeRouter = require("../routes/homeRouter")
