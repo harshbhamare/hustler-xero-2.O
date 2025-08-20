@@ -370,7 +370,7 @@
                         <button class="tab-btn active">Advance plan <i class="fa-solid fa-bolt"></i></button>
                     </div>
                     <ul class="program-features">
-                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.duration %> weeks duration</li>
+                        <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.duration %> days duration</li>
                         <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.level %> level program</li>
                         <li><i class="fa-solid fa-circle-check icon-success"></i> <%= course.Nmin %> minor + <%= course.Nmax %> major project</li>
                         <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter + Certificate</li>
@@ -389,7 +389,7 @@
                     </div>
                     <h6><%= course.instructor.name %></h6>
                     <p class="mentor-title"><%= course.instructor.expertise %></p>
-                    <a href="<%= course.instructor.linkedIn %>" class="linkedin-btn" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://<%= course.instructor.linkedIn %>" class="linkedin-btn" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </aside>
         </div>
