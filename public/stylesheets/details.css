@@ -191,7 +191,7 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.course-header p {
+.course-header p{
     font-size: 1rem;
     color: var(--text-light);
     line-height: 1.6;
