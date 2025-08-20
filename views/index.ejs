@@ -352,13 +352,13 @@
 
                     <!-- Program Tabs Navigation -->
                     <div class="program-tabs">
-                        <button class="program-tab" data-tab="development">
+                        <button class="program-tab active" data-tab="development">
                             <i class="fas fa-code"></i> Development programs
                         </button>
                         <button class="program-tab" data-tab="social">
                             <i class="fas fa-share-alt"></i> CAD/CAM programs
                         </button>
-                        <button class="program-tab active" data-tab="design">
+                        <button class="program-tab" data-tab="design">
                             <i class="fas fa-palette"></i> Design programs
                         </button>
 
@@ -377,69 +377,7 @@
 
                             %>
 
-                            <div id="design-content" class="course-grid active">
-                                <% if (designCourses.length> 0) { %>
-                                    <% designCourses.forEach(course=> { %>
-                                        <div class="course-card">
-                                            <span class="card-badge">Expert Internship</span>
-                                            <div class="card-header">
-                                                <img src="<%= course.image %>" alt="<%= course.title %> logo"
-                                                    class="logo">
-                                                <div class="course-title">
-                                                    <h4>
-                                                        <%= course.title %>
-                                                    </h4>
-                                                    <span>Xeroship program</span>
-                                                </div>
-                                                <div class="rating">
-                                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                                        class="fa-solid fa-star-half-stroke"></i>
-                                                </div>
-                                            </div>
-                                            <div class="members">
-                                                <div class="member-avatars">
-                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
-                                                    <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
-                                                    <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
-                                                </div>
-                                                <span>Join 867+ Members</span>
-                                            </div>
-                                            <div class="plan-tabs">
-                                                <button class="tab-btn">Hustle starts here</button>
-                                                <button class="tab-btn active">Advance plan <i
-                                                        class="fa-solid fa-bolt"></i></button>
-                                            </div>
-                                            <ul class="program-features">
-                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
-                                                    <%= course.duration %> weeks duration
-                                                </li>
-                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
-                                                    <%= course.level %> level program
-                                                </li>
-                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
-                                                    <%= course.Nmin %> minor + <%= course.Nmax %> major project
-                                                </li>
-                                                <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter +
-                                                    Certificate</li>
-                                                <li class="highlighted"><i
-                                                        class="fa-solid fa-circle-plus icon-highlight"></i> Live
-                                                    programs</li>
-                                            </ul>
-                                            <div class="pricing">
-                                                <span class="current-price">₹<%= course.price %>/-</span>
-                                                <span class="original-price">₹999/-</span>
-                                            </div>
-                                            <button class="btn-enroll">Enroll now</button>
-                                            <a href="/details/<%= course._id%>" class="more-details">More details</a>
-                                        </div>
-                                        <% }); %>
-                                            <% } else { %>
-                                                <p>No design programs available at the moment.</p>
-                                                <% } %>
-                            </div>
-
-                            <div id="development-content" class="course-grid">
+                            <div id="development-content" class="course-grid active">
                                 <% if (developmentCourses.length> 0) { %>
                                     <% developmentCourses.forEach(course=> { %>
                                         <div class="course-card">
@@ -451,7 +389,7 @@
                                                     <h4>
                                                         <%= course.title %>
                                                     </h4>
-                                                    <span>Xeroship program</span>
+                                                    <span>XEROship program</span>
                                                 </div>
                                                 <div class="rating">
                                                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
@@ -474,7 +412,7 @@
                                             </div>
                                             <ul class="program-features">
                                                 <li><i class="fa-solid fa-circle-check icon-success"></i>
-                                                    <%= course.duration %> weeks duration
+                                                    <%= course.duration %> days duration
                                                 </li>
                                                 <li><i class="fa-solid fa-circle-check icon-success"></i>
                                                     <%= course.level %> level program
@@ -501,9 +439,9 @@
                                                 <% } %>
                             </div>
 
-                            <div id="social-content" class="course-grid">
-                                <% if (socialMediaCourses.length> 0) { %>
-                                    <% socialMediaCourses.forEach(course=> { %>
+                            <div id="design-content" class="course-grid">
+                                <% if (designCourses.length> 0) { %>
+                                    <% designCourses.forEach(course=> { %>
                                         <div class="course-card">
                                             <span class="card-badge">Expert Internship</span>
                                             <div class="card-header">
@@ -513,7 +451,7 @@
                                                     <h4>
                                                         <%= course.title %>
                                                     </h4>
-                                                    <span>Xeroship program</span>
+                                                    <span>XEROship program</span>
                                                 </div>
                                                 <div class="rating">
                                                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
@@ -536,7 +474,69 @@
                                             </div>
                                             <ul class="program-features">
                                                 <li><i class="fa-solid fa-circle-check icon-success"></i>
-                                                    <%= course.duration %> weeks duration
+                                                    <%= course.duration %> days duration
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.level %> level program
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.Nmin %> minor + <%= course.Nmax %> major project
+                                                </li>
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i> Offer letter +
+                                                    Certificate</li>
+                                                <li class="highlighted"><i
+                                                        class="fa-solid fa-circle-plus icon-highlight"></i> Live
+                                                    programs</li>
+                                            </ul>
+                                            <div class="pricing">
+                                                <span class="current-price">₹<%= course.price %>/-</span>
+                                                <span class="original-price">₹999/-</span>
+                                            </div>
+                                            <button class="btn-enroll">Enroll now</button>
+                                            <a href="/details/<%= course._id%>" class="more-details">More details</a>
+                                        </div>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <p>No design programs available at the moment.</p>
+                                                <% } %>
+                            </div>
+
+                            <div id="social-content" class="course-grid">
+                                <% if (socialMediaCourses.length> 0) { %>
+                                    <% socialMediaCourses.forEach(course=> { %>
+                                        <div class="course-card">
+                                            <span class="card-badge">Expert Internship</span>
+                                            <div class="card-header">
+                                                <img src="<%= course.image %>" alt="<%= course.title %> logo"
+                                                    class="logo">
+                                                <div class="course-title">
+                                                    <h4>
+                                                        <%= course.title %>
+                                                    </h4>
+                                                    <span>XEROship program</span>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                                        class="fa-solid fa-star-half-stroke"></i>
+                                                </div>
+                                            </div>
+                                            <div class="members">
+                                                <div class="member-avatars">
+                                                    <img src="https://i.ibb.co/2vBv6s3/avatar1.jpg" alt="Member 1">
+                                                    <img src="https://i.ibb.co/L5k6YhR/avatar2.jpg" alt="Member 2">
+                                                    <img src="https://i.ibb.co/d0j8fXz/avatar3.jpg" alt="Member 3">
+                                                </div>
+                                                <span>Join 867+ Members</span>
+                                            </div>
+                                            <div class="plan-tabs">
+                                                <button class="tab-btn">Hustle starts here</button>
+                                                <button class="tab-btn active">Advance plan <i
+                                                        class="fa-solid fa-bolt"></i></button>
+                                            </div>
+                                            <ul class="program-features">
+                                                <li><i class="fa-solid fa-circle-check icon-success"></i>
+                                                    <%= course.duration %> days duration
                                                 </li>
                                                 <li><i class="fa-solid fa-circle-check icon-success"></i>
                                                     <%= course.level %> level program
