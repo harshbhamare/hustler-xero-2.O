@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
         //     message: "Student registered successfully!",
         //     data: savedStudent
         // });
-        res.redirect("/")
+        res.redirect("/confirmation-message")
 
     } catch (err) {
         console.error("Error saving student registration:", err);

@@ -44,6 +44,7 @@ const privacyRouter = require("../routes/privacyRouter")
 const termsRouter = require("../routes/termsRouter")
 const contactRouter = require("../routes/contactRouter")
 const refundRouter = require("../routes/refundRouter")
+const confirmRouter = require("../routes/confirmation")
 
 app.use("/", homeRouter)
 app.use("/", aboutRouter)
@@ -59,10 +60,11 @@ app.use("/", privacyRouter)
 app.use("/", termsRouter)
 app.use("/", contactRouter)
 app.use("/", refundRouter)
+app.use("/", confirmRouter)
 
 
-// app.listen(port, () => {
-//   console.log(`Admin dashboard is running at http://localhost:${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Admin dashboard is running at http://localhost:${port}`);
+});
 
-module.exports = app;
+// module.exports = app;

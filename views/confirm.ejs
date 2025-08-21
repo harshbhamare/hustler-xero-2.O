@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Confirmation</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Using a Google Font for a cleaner look */
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Main container for the message box -->
+    <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl max-w-lg w-full text-center space-y-6">
+
+        <!-- Big thank you message -->
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-indigo-700 leading-tight">
+            Thank you for registering with <span class="text-black">Hustler.XERO</span>
+        </h1>
+
+        <!-- Confirmation and contact details -->
+        <p class="text-gray-600 text-base sm:text-lg">
+            You will receive a confirmation email in the next 10 minutes.
+            For any queries, feel free to contact us at:
+            <a href="mailto:hello.hustlerbharat@gmail.com" class="text-indigo-600 hover:underline font-semibold">
+                hello.hustlerbharat@gmail.com
+            </a>
+        </p>
+
+        <!-- Button to go back to the home page -->
+        <button
+            onclick="window.history.back()"
+            class="mt-6 px-8 py-3 text-lg font-semibold text-white bg-indigo-600 rounded-full shadow-lg
+                   hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50
+                   transition ease-in-out duration-200 transform hover:scale-105"
+        >
+            Go back to Home
+        </button>
+
+    </div>
+
+</body>
+</html>
