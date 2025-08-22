@@ -445,6 +445,7 @@
 
 
          <script>
+             window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
         // The most important step: wrap your code in a DOMContentLoaded event listener
         document.addEventListener('DOMContentLoaded', function() {
             // --- Mobile Navigation Toggle ---
@@ -502,5 +503,6 @@
             const testimonialsSwiper = new Swiper('.testimonials-slider', { /* ... */ });
         });
     </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
