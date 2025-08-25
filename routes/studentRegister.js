@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const studentModel = require("../models/studentModel")
+const studentModel = require("../models/studentModel");
 const Course = require('../models/courseModel');
 const { sendRegistrationEmail } = require('../utils/emailService');
 
@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-   
+    
     const { 
         firstName, 
         lastName, 
@@ -38,21 +38,21 @@ router.post("/", async (req, res) => {
         });
 
         const savedStudent = await newStudent.save();
-        sendRegistrationEmail(email, firstName);
+        
+        // This line is now correctly awaiting the promise-based function.
+        // It will wait for the email to be sent before continuing.
+        await sendRegistrationEmail(email, firstName);
 
-        // console.log("New student registration saved:", savedStudent);
-        // res.status(201).json({ 
-        //     message: "Student registered successfully!",
-        //     data: savedStudent
-        // });
+        // This line will only run after the student is saved and the email is sent successfully.
         res.redirect("/confirmation-message")
 
     } catch (err) {
-        console.error("Error saving student registration:", err);
+        console.error("Error saving student registration or sending email:", err);
         res.status(400).json({ 
             error: "Failed to register student.",
             details: err.message
         });
     }
 });
+
 module.exports = router;
