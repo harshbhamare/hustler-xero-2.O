@@ -55,7 +55,7 @@ app.use('/courses', courseRoutes);
 app.use("/", courseRoutes)
 app.use("/", detailsRouter)
 app.use("/login-admin", adminLogin);
-app.use("/signup-admin", adminSignup);
+// app.use("/signup-admin", adminSignup);
 app.use("/", privacyRouter)
 app.use("/", termsRouter)
 app.use("/", contactRouter)

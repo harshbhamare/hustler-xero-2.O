@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Student = require('../models/studentModel');
+const studentModel = require('../models/studentModel');
 const courses = require('../models/courseModel');
 const Course = require('../models/courseModel');
 const isAuthenticated = require('../middlewares/auth');
@@ -78,7 +78,7 @@ router.post("/update-status/:id", isAuthenticated, async (req, res) => {
         await sendPaymentConfirmationEmail({
             email: student.email,
             firstName: student.firstName,
-            enrolledCourses: courseTitle, // Directly use the course title string
+            enrolledCourses: courseTitle, 
             amountPaid,
             trnNumber
         });
