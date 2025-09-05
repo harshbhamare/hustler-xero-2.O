@@ -130,17 +130,17 @@
                                         <form class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 p-6 rounded-2xl bg-white border border-gray-200 shadow-inner update-form" action="/update-status/<%= student.id %>" method="post">
                                             <div class="flex-1">
                                                 <label for="trn-<%= student._id %>" class="block text-sm font-medium text-gray-700">Transaction Number</label>
-                                                <input type="text" id="trn-<%= student._id %>" name="trnNumber"
+                                                <input type="text" id="trn-<%= student._id %>" name="trnNumber" required
                                                     class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="Enter transaction number">
                                             </div>
                                             <div class="flex-1">
                                                 <label for="amount-<%= student._id %>" class="block text-sm font-medium text-gray-700">Amount Paid</label>
-                                                <input type="number" id="amount-<%= student._id %>" name="amountPaid"
+                                                <input type="number" id="amount-<%= student._id %>" name="amountPaid" required
                                                     class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm" placeholder="Enter amount">
                                             </div>
                                             <div class="flex-1">
                                                 <label for="status-<%= student._id %>" class="block text-sm font-medium text-gray-700">Status</label>
-                                                <select id="status-<%= student._id %>" name="status"
+                                                <select id="status-<%= student._id %>" name="status" 
                                                     class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 border text-sm">
                                                     <option value="pending" <%= student.status === 'pending' ? 'selected' : '' %>>Pending</option>
                                                     <option value="completed" <%= student.status === 'completed' ? 'selected' : '' %>>Completed</option>
